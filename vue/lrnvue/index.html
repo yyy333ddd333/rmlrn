@@ -1,3 +1,4 @@
+
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -6,8 +7,41 @@
 <script src='../vue.js'></script>
 </head>
 <body>
-<script>
 
+    <ul id='example-1'>
+        <li v-for='item in items'>
+            {{ item.message }}
+        </li>
+    </ul>
+
+    <ul id='example-2'>
+        <li v-for='(item, index) in items'>
+            {{ parentMessage }} - {{ index }} - {{ item.message }}
+        </li>
+    </ul>
+
+<script>
+// console.log(Vue)
+var example1 = new Vue({
+    el: '#example-1',
+    data: {
+        items: [
+            {message: 'Foo'},
+            {message: 'Bar'}
+        ]
+    }
+})
+
+var example2 = new Vue({
+    el: '#example-2',
+    data: {
+        parentMessage: 'Parent',
+        items: [
+            { message: 'Foo' },
+            { message: 'Bar' }
+        ]
+    }
+})
 </script>
 </body>
 </html>
