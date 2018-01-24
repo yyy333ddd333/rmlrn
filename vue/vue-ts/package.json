@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    
+  },
+  "devDependencies": {
+    "vue": "^2.5.13",
+    "webpack": "^3.10.0"
+  }
+}
