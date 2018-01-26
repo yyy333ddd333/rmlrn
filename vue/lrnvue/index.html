@@ -15,14 +15,36 @@
         <li v-for='item in items'>
             {{ item.message }}
         </li>
+	    <template v-for="item in items">
+	    	<li>{{ item.message }}</li>
+	    	<li class="divider">*****</li>
+	    </template>
     </ul>
 
     <ul id='example-2'>
         <li v-for='(item, index) in items'>
             {{ parentMessage }} - {{ index }} - {{ item.message }}
         </li>
+        <div>
+              <span v-for="n in 10">{{ n }} </span>
+        </div>
     </ul>
-
+	<div id="todo-list-example">
+	  <input
+		v-model="newTodoText"
+		v-on:keyup.enter="addNewTodo"
+		placeholder="Add a todo"
+	  >
+	  <ul>
+		<li
+		  is="todo-item"
+		  v-for="(todo, index) in todos"
+		  v-bind:key="todo.id"
+		  v-bind:title="todo.title"
+		  v-on:remove="todos.splice(index, 1)"
+		></li>
+	  </ul>
+	</div>
 <script>
 // console.log(Vue)
 var example1 = new Vue({
@@ -44,6 +66,47 @@ var example2 = new Vue({
             { message: 'Bar' }
         ]
     }
+})
+
+Vue.component('todo-item', {
+  template: '\
+    <li>\
+      {{ title }}\
+      <button v-on:click="$emit(\'remove\')">X</button>\
+    </li>\
+  ',
+  props: ['title']
+})
+
+new Vue({
+  el: '#todo-list-example',
+  data: {
+    newTodoText: '',
+    todos: [
+      {
+        id: 1,
+        title: 'Do the dishes',
+      },
+      {
+        id: 2,
+        title: 'Take out the trash',
+      },
+      {
+        id: 3,
+        title: 'Mow the lawn'
+      }
+    ],
+    nextTodoId: 4
+  },
+  methods: {
+    addNewTodo: function () {
+      this.todos.push({
+        id: this.nextTodoId++,
+        title: this.newTodoText
+      })
+      this.newTodoText = ''
+    }
+  }
 })
 </script>
 </body>
