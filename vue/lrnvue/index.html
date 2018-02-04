@@ -44,7 +44,29 @@
 		  v-on:remove="todos.splice(index, 1)"
 		></li>
 	  </ul>
-	</div>
+  </div>
+  <div id="example-3">
+    <button v-on:click="warn('Form cannot be submitted yet.', $event)">
+      Submit
+    </button>
+  </div>
+
+  <div id="example-cmpnt1">
+    <my-component></my-component>
+  </div>
+
+  <div id="example-cmpnt2">
+    <my-component></my-component>
+  </div>
+
+  <div id='example-cmpnt3'>
+    <child :my-message="parentMsg"></child>
+  </div>
+
+  <div id='example-cmpnt4'>
+    <todo-item2 v-bind='todo'></todo-item2>
+  </div>
+
 <script>
 // console.log(Vue)
 var example1 = new Vue({
@@ -108,6 +130,60 @@ new Vue({
     }
   }
 })
+
+new Vue({
+  el: '#example-3',
+  methods: {
+    warn: function (message, event) {
+    // 现在我们可以访问原生事件对象
+    if (event) event.preventDefault()
+    alert(message)
+  }
+  } 
+})
+
+Vue.component('my-component', {
+  template: '<div>A custom component!</div>'
+})
+new Vue({
+  el: '#example-cmpnt1'
+})
+
+new Vue({
+  el: '#example-cmpnt2',
+  components: {
+    'my-component': {template: '<div>A local custom component!</div>'}
+  }
+})
+
+Vue.component('child', {
+  // 在 JavaScript 中使用 camelCase
+  props: ['myMessage'],
+  template: '<span>{{ myMessage }}</span>'
+})
+
+new Vue({
+  el: '#example-cmpnt3',
+  data: {
+    parentMsg: `it's parentMsg`
+  }
+}) 
+
+Vue.component('todo-item2', {
+  props: ['text', 'isComplete'],
+  template: '<span>{{text}} {{isComplete}}</span>'
+})
+
+new Vue({
+  el: '#example-cmpnt4',
+  data: {
+    todo: {
+      text: 'Learn Vue',
+      isComplete: false
+    }
+  }
+})
+
 </script>
 </body>
 </html>
