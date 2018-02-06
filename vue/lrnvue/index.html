@@ -67,6 +67,16 @@
     <todo-item2 v-bind='todo'></todo-item2>
   </div>
 
+  <div id='example-cmpnt5'>
+    <example :prop-a='1.365'></example>
+  </div>
+
+  <div id='example-cmpnt6'>
+    <!-- 非prop属性会出现在组件根元素的属性内，如<span myprop='123'> -->
+    <example2 myprop='123'></example2>
+    <comp :foo.sync='bar'></comp>
+  </div>
+
 <script>
 // console.log(Vue)
 var example1 = new Vue({
@@ -183,6 +193,67 @@ new Vue({
     }
   }
 })
+
+Vue.component('example', {
+  template: '<span>{{propA}}</span>',
+  props: {
+    // 基础类型检测 (`null` 指允许任何类型)
+    propA: Number,
+    // // 可能是多种类型
+    // propB: [String, Number],
+    // // 必传且是字符串
+    // propC: {
+    //   type: String,
+    //   required: true
+    // },
+    // // 数值且有默认值
+    // propD: {
+    //   type: Number,
+    //   default: 100
+    // },
+    // // 数组/对象的默认值应当由一个工厂函数返回
+    // propE: {
+    //   type: Object,
+    //   default: function () {
+    //     return { message: 'hello' }
+    //   }
+    // },
+    // 自定义验证函数
+    // propF: {
+    //   validator: function (value) {
+    //     return value > 10
+    //   }
+    // }
+  }
+})
+
+new Vue({
+  el: '#example-cmpnt5',
+  data: {
+  }
+})
+
+Vue.component('example2',{
+  template: '<span></span>'
+})
+
+Vue.component('comp', {
+  template: '<button @click="update(250)">{{foo}}</button>', //组件同时也是vue的实例，所以可以在template中使用v-以及data、methods
+  props: ['foo'],
+  methods: {
+    update: function(newValue){
+      this.$emit('update:foo', newValue)
+    }
+  }
+})
+
+var vm2 = new Vue({
+  el: '#example-cmpnt6',
+  data: {
+    bar: 0
+  }
+})
+
 
 </script>
 </body>
