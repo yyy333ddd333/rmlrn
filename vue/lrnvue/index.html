@@ -75,6 +75,28 @@
     <!-- 非prop属性会出现在组件根元素的属性内，如<span myprop='123'> -->
     <example2 myprop='123'></example2>
     <comp :foo.sync='bar'></comp>
+    <my-component2-f>
+    </my-component2-f>
+
+    <div class="parent">
+      <child1>
+        <template slot-scope="props1">
+          <span>hello from parent</span>
+          <span>{{ props1.text }}</span>
+        </template>
+      </child1>
+    </div>
+
+    <my-awesome-list :items="items"> <!-- 第一个items代表子组件的props属性'items'，第二个items代表vue实例vm2绑定的items -->
+      <!-- 作用域插槽也可以是具名的 -->
+      <li
+        slot="item"
+        slot-scope="props"
+        class="my-fancy-item">
+        {{ props.text }}
+      </li>
+    </my-awesome-list>
+
   </div>
 
 <script>
@@ -247,13 +269,57 @@ Vue.component('comp', {
   }
 })
 
+Vue.component('my-component2',{
+  template: `
+  <div>
+    <h2>我是子组件的标题</h2>
+    <slot>
+      只有在没有要分发的内容时才会显示。
+    </slot>
+  </div>
+  `
+})
+
+Vue.component('my-component2-f',{
+  template: `
+    <div>
+      <h1>我是父组件的标题</h1>
+      <my-component2>
+        <p>这是一些初始内容</p>
+        <p>这是更多的初始内容</p>
+      </my-component2>
+    </div>
+  `
+})
+
+Vue.component('child1', {
+  template: `
+    <div class="child">
+      <slot text="hello from child"></slot>
+    </div>
+  `
+})
+Vue.component('my-awesome-list', {
+  template: `
+    <ul>
+      <slot name="item"
+        v-for="item in items"
+        :text="item"
+      >
+        <!-- 这里写入备用内容 -->
+      </slot>
+    </ul>
+  `,
+  props: ['items']
+})
+
 var vm2 = new Vue({
   el: '#example-cmpnt6',
   data: {
-    bar: 0
+    bar: 0,
+    items: ['javascript', 'typescript', 'node.js']
   }
 })
-
 
 </script>
 </body>
