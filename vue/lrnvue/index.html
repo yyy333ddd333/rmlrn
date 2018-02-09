@@ -97,6 +97,9 @@
       </li>
     </my-awesome-list>
 
+    <component :is='currentView'></component>
+    <async-example></async-example>
+
   </div>
 
 <script>
@@ -313,11 +316,25 @@ Vue.component('my-awesome-list', {
   props: ['items']
 })
 
+var Home = {
+  template: '<p>Welcome home!</p>'
+}
+
+Vue.component('async-example', function (resolve, reject) {
+  setTimeout(function () {
+    // 将组件定义传入 resolve 回调函数
+    resolve({
+      template: '<div>I am async!</div>'
+    })
+  }, 1000)
+})
+
 var vm2 = new Vue({
   el: '#example-cmpnt6',
   data: {
     bar: 0,
-    items: ['javascript', 'typescript', 'node.js']
+    items: ['javascript', 'typescript', 'node.js'],
+    currentView: Home
   }
 })
 
