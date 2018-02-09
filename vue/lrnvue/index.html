@@ -100,6 +100,9 @@
     <component :is='currentView'></component>
     <async-example></async-example>
 
+    <tree-folder :folder='testFolder'>
+    </tree-folder>
+
   </div>
 
 <script>
@@ -329,14 +332,53 @@ Vue.component('async-example', function (resolve, reject) {
   }, 1000)
 })
 
+Vue.component('tree-folder', {
+  template: `
+    <p>
+      <span>{{ folder.name }}</span>
+      <tree-folder-contents :children="folder.children"/>
+    </p>
+  `,
+  props: ['folder']
+})
+
+Vue.component('tree-folder-contents', {
+  template: `
+    <ul>
+      <li v-for="child in children">
+        <tree-folder v-if="child.children" :folder="child"/>
+        <span v-else>{{ child.name }}</span>
+      </li>
+    </ul>
+  `,
+  props: ['children']
+})
+
 var vm2 = new Vue({
   el: '#example-cmpnt6',
   data: {
     bar: 0,
     items: ['javascript', 'typescript', 'node.js'],
-    currentView: Home
+    currentView: Home,
+
+    testFolder: {
+      name: "testFolder",
+      children: [
+        {name: "file1"},
+        {name: "file2"},
+        {
+          name: "innerFolder",
+          children: [
+            {name: "file3"}
+          ]
+        }
+      ]
+    }
+
+    
   }
 })
+
 
 </script>
 </body>
