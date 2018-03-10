@@ -12,3 +12,5 @@ export function wordToNum(word) {
     return ref.word === word && word.toLowerCase() ? ref.num : accum;
   }, -1);
 };
+
+export default {numToWord, wordToNum}
