@@ -1,16 +1,13 @@
-import _ from 'lodash';
-import numRef from './ref.json';
+import { file, parse } from './globals.js'
 
-export function numToWord(num) {
-  return _.reduce(numRef, (accum, ref) => {
-    return ref.num === num ? ref.word : accum;
-  }, '');
-};
+function component() {
+  var element = document.createElement('div');
 
-export function wordToNum(word) {
-  return _.reduce(numRef, (accum, ref) => {
-    return ref.word === word && word.toLowerCase() ? ref.num : accum;
-  }, -1);
-};
+  element.innerHTML = _.join(['Hello', 'webpack', file], ' ');
+  // Assume we are in the context of `window`
+  this.alert('Hmmm, this probably isn\'t a great idea...')
 
-export default {numToWord, wordToNum}
+  return element;
+}
+
+document.body.appendChild(component());
