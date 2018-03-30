@@ -19,12 +19,42 @@
   </transition>
 </div>
 
+<div id="demo2">
+  <my-component v-model="test"></my-component>
+  <p>{{test}}</p>
+</div>
+
 <script>
 
 new Vue({
   el: '#demo',
   data: {
     show: true
+  }
+})
+
+vmtmp = new Vue({
+  el: '#demo2',
+  data: {
+    test: 0
+  },
+  components: {
+    'my-component': {
+      props: ['value'],
+      render: function (createElement) {
+        var self = this
+        return createElement('input', {
+          domProps: {
+            value: self.value
+          },
+          on: {
+            input: function (event) {
+              self.$emit('input', event.target.value)
+            }
+          }
+        })
+      }
+    }
   }
 })
 </script>
