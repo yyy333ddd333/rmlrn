@@ -24,5 +24,6 @@ const router = new VueRouter({
     routes // （缩写）相当于 routes: routes
 })
 new Vue({
-    router
+    router,
+    // render: h => h('h1','test')
 }).$mount('#app1')
