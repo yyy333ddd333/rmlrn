@@ -1,7 +1,10 @@
-import Vue from 'vue'
-//import App from './App.vue'
+import VConsole from "vconsole";
+new VConsole();
 
+import Vue from 'vue'
 import VueRouter from 'vue-router'
+
+import App1 from './App1.vue'
 
 Vue.config.productionTip = false
 
@@ -25,5 +28,5 @@ const router = new VueRouter({
 })
 new Vue({
     router,
-    // render: h => h('h1','test')
+    render: h => h(App1)
 }).$mount('#app1')
