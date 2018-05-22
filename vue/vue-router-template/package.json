@@ -27,10 +27,7 @@
   "eslintConfig": {
     "root": true,
     "extends": [
-      "plugin:vue/essential",
-      "@vue/airbnb",
-      "plugin:vue/essential",
-      "eslint:recommended"
+      "plugin:vue/essential"
     ]
   },
   "postcss": {
