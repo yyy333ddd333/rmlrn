@@ -180,3 +180,31 @@ new Vue({
     </div>
   `
 }).$mount('#app3')
+
+const Promotion = {
+  props: ['newsletterPopup'],
+  template: `
+    <div>
+      <br />
+      props: {{ newsletterPopup }}
+    </div>
+  `
+}
+
+const router4 = new VueRouter({
+  routes: [
+    { path: '/promotion/from-newsletter', component: Promotion, props: { newsletterPopup: 'abc' } }
+  ]
+})
+
+new Vue({
+  router: router4,
+  template: `
+    <div>
+      <h1>Route props test2</h1>
+      <router-link to="/promotion/from-newsletter">/promotion/from-newsletter</router-link>
+      <router-view></router-view>
+    </div>
+  `,
+
+}).$mount('#app4')
