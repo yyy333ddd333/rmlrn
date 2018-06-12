@@ -6,6 +6,8 @@ const controller = require('./controller');
 
 const templating = require('./templating');
 
+const rest = require('./rest')
+
 const app = new Koa();
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -35,6 +37,9 @@ app.use(templating('views', {
     noCache: !isProduction,
     watch: !isProduction
 }));
+
+// bind .rest() for ctx:
+app.use(rest.restify());
 
 // add controller:
 app.use(controller());
