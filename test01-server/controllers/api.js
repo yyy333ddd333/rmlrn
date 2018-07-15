@@ -1,7 +1,5 @@
-//const request = require('request');
-
 const request = require('request-promise-native')
-
+let appkey = require('../appkey')()
 const APIError = require('../rest').APIError;
 
 module.exports = {
@@ -11,9 +9,8 @@ module.exports = {
 
     'GET /api/stock/:id': async (ctx, next) => { //该URL通过controller.js被加入到了router里，router里的规则也是“GET /api/stock/:id”。也就是说id是在koa-router里被解析识别的。
         console.log(`id is ${ctx.params.id}`)
-        
-        let data = await request('http://web.juhe.cn:8080/finance/stock/hs?gid=' + ctx.params.id + '&key=b8b2dbe7bebf93ed84842bce7713f452')
-        ctx.rest(JSON.parse(data))
+            let data = await request('http://web.juhe.cn:8080/finance/stock/hs?gid=' + ctx.params.id + '&key=' + appkey)
+            ctx.rest(JSON.parse(data))    
     },
 
     // 'POST /api/products': async (ctx, next) => {
