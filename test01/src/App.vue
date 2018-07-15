@@ -10,7 +10,7 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import axios from 'axios'
-import jsonp from 'jsonp'
+// import jsonp from 'jsonp'
 
 export default {
   name: 'app',
@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     getInfo() {
-      // axios.get('http://web.juhe.cn:8080/finance/stock/hs?gid=sh601009&key=b8b2dbe7bebf93ed84842bce7713f452')
-      // .then(res => console.log(res.data))
+      axios.get('http://localhost:3000/api/stock/sh000001')
+      .then(res => console.log(res))
       // jsonp('http://web.juhe.cn:8080/finance/stock/hs?gid=sh601009&key=b8b2dbe7bebf93ed84842bce7713f452')
     }
   },
