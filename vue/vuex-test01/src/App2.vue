@@ -1,14 +1,36 @@
 <template>
-  <div id='app2'>
-    <button type="button" v-on:click="inc">+</button>  
+  <div>
+    {{count}}{{count2}}{{count3}}
+    <button @click="inc">+</button>  
   </div>
 </template>
 
 <script>
-//import store from './store.js'
+import { mapState } from 'vuex'
+
 export default{
   methods: {
-    inc: function(){console.log('inc')}
-  }  
+    inc: function(){
+      //this.count++
+      this.$store.commit("increment")
+      console.log('inc')
+    }
+  },
+  computed: {
+    count() {
+      return this.$store.state.count
+    },
+    ...mapState({
+      count2: "count",
+      count3: state => state.count
+    })
+  },
+/*
+  data(){
+    return{
+      count: 0
+    }
+  }
+*/
 }
 </script>
