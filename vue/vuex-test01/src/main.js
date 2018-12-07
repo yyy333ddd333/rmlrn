@@ -18,4 +18,4 @@ new Vue({
   render: h => h(App2)
 }).$mount('#app')
 //store.commit('increment')
-//console.log(store.state.count)
+console.log(store.getters.doneTodos, store.getters.doneTodosCount)
