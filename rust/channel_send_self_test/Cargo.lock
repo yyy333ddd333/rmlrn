@@ -1,0 +1,4 @@
+[[package]]
+name = "channel_send_self_test"
+version = "0.1.0"
+
