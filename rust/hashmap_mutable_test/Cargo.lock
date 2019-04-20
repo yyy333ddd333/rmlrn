@@ -1,0 +1,4 @@
+[[package]]
+name = "hashmap_mutable_test"
+version = "0.1.0"
+
