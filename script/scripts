@@ -1,0 +1,1 @@
+ln -s ~/../usr/libexec/termux/command-not-found ~/../usr/bin/cnf
