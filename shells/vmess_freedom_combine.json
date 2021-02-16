@@ -1,0 +1,50 @@
+{
+  "log": {
+    "loglevel": "debug"
+  },
+  "inbounds": [{
+    "port": 11017,
+    "protocol": "vmess",
+    "settings": {
+      "clients": [
+        {
+          "id": "626dccbb-7f9d-40d3-8e8a-770b75ee07bc",
+          "level": 1,
+          "alterId": 64
+        }
+      ]
+    }
+  },{
+    "port": 11018,
+    "protocol": "vmess",
+    "settings": {                                                   "clients": [
+        {                                                               "id": "626dccbb-7f9d-40d3-8e8a-770b75ee07bc",
+          "level": 1,
+          "alterId": 64
+        }                                                           ]
+    },                                                            "streamSettings":{
+      "network": "kcp",
+      "kcpSettings": {
+        "header": {
+          "type": "utp"
+        }                                                           }
+    }
+  }],
+  "outbounds": [{
+    "protocol": "freedom",
+    "settings": {}
+  },{
+    "protocol": "blackhole",
+    "settings": {},
+    "tag": "blocked"
+  }],
+  "routing": {
+    "rules": [
+      {
+        "type": "field",
+        "ip": ["geoip:private"],
+        "outboundTag": "blocked"
+      }
+    ]
+  }
+}
