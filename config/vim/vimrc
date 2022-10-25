@@ -6,6 +6,7 @@ source $VIMRUNTIME/defaults.vim
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'suan/vim-instant-markdown'
 
 " Initialize plugin system
 call plug#end()
